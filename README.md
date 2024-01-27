@@ -24,7 +24,7 @@ I'll call numbers greater than 5 and congruent to either 1 or 5 mod 6 *potential
 (Yes, 2, 3, and 5 are also primes, but they're hard-coded.)
 
 ## Parallelism
-The threads have two critical points: when they take a batch of integers to check the potential primes of, and when they add to the set of primes.
+The threads need to coordinate with one another at two points: when they take a batch of integers to check the potential primes of, and when they add to the set of primes.
 - Every potential prime is checked at some point:  
   The threads take a group of 6 integers at a time by calling `getAndAdd(6)` on the `AtomicInteger`. Java guarantees this to be an atomic operation, hence this cannot result in an inconsistent state. They then take the integers at indices 1 and 5 of the group, which are the two potential primes.
 - Every number determined to be prime is added correctly to the set of primes:  
@@ -54,4 +54,4 @@ I ran the program five times for each power of 10 up to the 10th, with 8 threads
 | 10000000 | 664579 | 3203324994356 | 961.87ms | 986.65ms |
 | 100000000 | 5761455 | 279209790387276 | 20400.26ms | 20773.03ms |
 
-Note that the counts and sums for powers of 10 can be validated against [https://oeis.org/A006880](A006880) and [https://oeis.org/A046731](A046731) in the OEIS.
+Note that the counts and sums for powers of 10 can be validated against [A006880](https://oeis.org/A006880) and [A046731](https://oeis.org/A046731) in the OEIS.
